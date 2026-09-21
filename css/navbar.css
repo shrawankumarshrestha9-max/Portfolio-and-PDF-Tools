@@ -1,0 +1,166 @@
+/* ==========================================================
+   navbar.css — fixed top bar + CSS-only mobile menu
+
+   Mobile menu trick (no JavaScript):
+   - the ☰ button links to  #mobile-menu   -> the menu matches :target and shows
+   - the ✕ button links to  #navbar        -> :target moves away and the menu hides
+   - tapping a menu link (#about, #skills…) also moves :target, so it closes itself
+   ========================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+}
+
+/* Bar turns into frosted glass after the page scrolls a little.
+   Uses scroll-driven animation where supported; otherwise it is always frosted. */
+@keyframes navbar-frost {
+  to {
+    background-color: rgb(202 240 225 / 0.85);
+    border-bottom-color: var(--hairline);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  .navbar {
+    animation: navbar-frost linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 60px;
+  }
+}
+@supports not (animation-timeline: scroll()) {
+  .navbar {
+    background-color: rgb(202 240 225 / 0.85);
+    border-bottom-color: var(--hairline);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+@media (min-width: 768px) { .navbar__inner { height: 5rem; } }
+
+/* ---------- Brand ---------- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.brand__logo {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.brand__name {
+  font-size: 2.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: var(--heading);
+}
+
+/* ---------- Desktop links ---------- */
+.navbar__links {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+}
+@media (min-width: 768px) { .navbar__links { display: flex; } }
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--ink-300);
+  transition: color 0.15s var(--ease), background-color 0.15s var(--ease);
+}
+.nav-link:hover {
+  color: var(--heading);
+  background: rgb(var(--tint-rgb) / 0.08);
+}
+
+/* ---------- Mobile toggle buttons ---------- */
+.menu-button {
+  display: none;
+  padding: 0.5rem;
+  color: var(--heading);
+}
+.menu-button--close { display: none; }
+
+@media (max-width: 767.98px) {
+  .menu-button--open { display: inline-flex; }
+  /* swap ☰ for ✕ while the menu is open */
+  .navbar:has(.mobile-menu:target) .menu-button--open  { display: none; }
+  .navbar:has(.mobile-menu:target) .menu-button--close { display: inline-flex; }
+}
+
+/* ---------- Mobile menu panel ---------- */
+.mobile-menu {
+  display: none;
+  border-top: 1px solid var(--hairline);
+  background: rgb(202 240 225 / 0.97);
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
+}
+@media (max-width: 767.98px) {
+  .mobile-menu:target {
+    display: block;
+    animation: fadeDown 0.6s ease-out backwards;
+  }
+}
+.mobile-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: 1rem;
+}
+.mobile-menu .nav-link {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+}
+
+/* ---------- "PDF Tools" button ---------- */
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: var(--heading);
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+.nav-cta:hover { background: rgb(var(--tint-rgb) / 0.1); }
+/* highlighted when you are on the PDF Tools page */
+.nav-cta[aria-current="page"] {
+  background: var(--accent-500);
+  color: var(--on-accent);
+}
+.nav-cta[aria-current="page"]:hover { background: var(--accent-500); }
+
+/* inside the phone menu it is always the green button */
+.mobile-menu .nav-cta {
+  margin: 0.5rem 0 0;
+  padding: 0.75rem 1rem;
+  background: var(--accent-500);
+  color: var(--on-accent);
+}
+.mobile-menu .nav-cta:hover { background: var(--accent-400); }

@@ -1,0 +1,161 @@
+/* ==========================================================
+   hero.css — landing section
+   Layout: text column + square picture.
+   Mobile  -> picture on top, text below (centered)
+   Desktop -> text on the left, picture on the right (left-aligned)
+   ========================================================== */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;            /* must NOT be 100vh / 100svh, that is what leaves the empty space */
+  padding-block: 6rem 0;    /* no padding at the bottom */
+  overflow: hidden;
+}
+.hero__glow-1 { top: 25%;    left: 25%; }
+.hero__glow-2 { bottom: 25%; right: 25%; } 
+ .hero__fade {
+  background: linear-gradient(to bottom, transparent, transparent, var(--bg)); 
+} 
+ .hero .bg-grid { opacity: 0.6; }
+
+.hero__content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+/* ---------- Two-column layout ---------- */
+.hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .hero__layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 3rem;
+  }
+}
+@media (min-width: 1024px) { .hero__layout { gap: 5rem; } }
+
+.hero__text { min-width: 0; }
+@media (min-width: 768px) { .hero__text { text-align: left; } }
+
+/* ---------- Picture (square, 25% rounded corners) ---------- */
+.hero__photo {
+  position: relative;
+  order: -1;                       /* phone: picture goes on top */
+  width: min(72vw, 18rem);
+  margin-inline: auto;
+}
+@media (min-width: 768px) {
+  .hero__photo {
+    order: 0;                      /* desktop: picture on the right */
+    width: 100%;
+    max-width: 40rem;
+    margin-inline: 0;
+    justify-self: end;
+  }
+}
+
+/* soft green/blue glow behind the picture */
+.hero__photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 25%;
+  background: linear-gradient(to bottom right,
+              rgb(var(--accent-500-rgb) / 0.45), rgb(var(--brand-500-rgb) / 0.35));
+  filter: blur(36px);
+  transform: scale(0.96);
+}
+
+.hero__photo-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 25%;
+  overflow: hidden;
+  border: 4px solid rgb(255 255 255 / 0.75);
+  background: linear-gradient(to bottom right, var(--accent-400), var(--brand-500));
+  box-shadow: 0 20px 40px -12px rgb(var(--tint-rgb) / 0.35);
+}
+
+/* shown only if the picture file is missing */
+.hero__photo-fallback {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--on-accent);
+}
+
+.hero__photo-img {
+  position: relative;              /* sits on top of the fallback */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Text ---------- */
+.hero__badge {
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.hero__title {
+  margin-bottom: 1.5rem;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 1000 ;
+  color: var(--heading);
+  text-wrap: balance;
+}
+@media (min-width: 640px)  { .hero__title { font-size: 3.75rem; } }
+@media (min-width: 768px)  { .hero__title { font-size: 4rem; } }
+@media (min-width: 1024px) { .hero__title { font-size: 6rem; } }
+
+/* Tagline: text is aligned to the LEFT of its box.
+   Phone: the box is centred under the title.  Desktop: box sits at the left edge. */
+.hero__tagline {
+  width: fit-content;
+  max-width: 42rem;
+  margin: 0 auto 1.75rem;
+  text-align: left;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.125rem;
+  line-height: 2rem;
+  color: var(--ink-400);
+  text-wrap: balance;
+}
+@media (min-width: 768px) {
+  .hero__tagline { margin-left: 0; font-size: 1.25rem; }
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+@media (min-width: 640px) { .hero__actions { flex-direction: row; } }
+@media (min-width: 768px) { .hero__actions { justify-content: flex-start; } }
+
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 42rem;
+  margin: 2rem auto 0;      /* was 3rem; the 0 keeps nothing below the cards */
+}
+@media (min-width: 768px) {
+  .hero__stats { margin-left: 0; }
+}

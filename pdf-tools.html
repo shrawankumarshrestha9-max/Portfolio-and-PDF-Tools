@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Tools — Shrawan Shrestha</title>
+  <meta name="description" content="Free file-to-PDF converter and PDF merger that run entirely in your browser." />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/pdf-tools.css" />
+</head>
+<body id="top">
+
+  <!-- Icon sprite: every icon below is drawn with <use href="#icon-…"> -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="icon-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol>
+    <symbol id="icon-file-stack" viewBox="0 0 24 24"><path d="M21 7h-3a2 2 0 0 1-2-2V2" /><path d="M21 6v6.5c0 .8-.7 1.5-1.5 1.5h-7c-.8 0-1.5-.7-1.5-1.5v-9c0-.8.7-1.5 1.5-1.5H17Z" /><path d="M7 8v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H15" /><path d="M3 12v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H11" /></symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></symbol>
+    <symbol id="icon-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /><path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" /></symbol>
+    <symbol id="icon-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></symbol>
+    <symbol id="icon-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></symbol>
+    <symbol id="icon-combine" viewBox="0 0 24 24"><path d="M10 18H5a3 3 0 0 1-3-3v-1" /><path d="M14 2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2" /><path d="M20 2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2" /><path d="m7 21 3-3-3-3" /><rect x="14" y="14" width="8" height="8" rx="2" /><rect x="2" y="2" width="8" height="8" rx="2" /></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M20 7h-9" /><path d="M14 17H5" /><circle cx="17" cy="17" r="3" /><circle cx="7" cy="7" r="3" /></symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></symbol>
+    <symbol id="icon-file-type" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M9 13v-1h6v1" /><path d="M12 12v6" /><path d="M11 18h2" /></symbol>
+    <symbol id="icon-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /></symbol>
+    <symbol id="icon-table" viewBox="0 0 24 24"><path d="M12 3v18" /><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M3 9h18" /><path d="M3 15h18" /></symbol>
+    <symbol id="icon-presentation" viewBox="0 0 24 24"><path d="M2 3h20" /><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" /><path d="m7 21 5-5 5 5" /></symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></symbol>
+    <symbol id="icon-loader-circle" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56" /></symbol>
+    <symbol id="icon-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></symbol>
+    <symbol id="icon-grip-vertical" viewBox="0 0 24 24"><circle cx="9" cy="12" r="1" /><circle cx="9" cy="5" r="1" /><circle cx="9" cy="19" r="1" /><circle cx="15" cy="12" r="1" /><circle cx="15" cy="5" r="1" /><circle cx="15" cy="19" r="1" /></symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7" /><path d="M12 19V5" /></symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14" /><path d="m19 12-7 7-7-7" /></symbol>
+  </svg>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar" aria-label="Main navigation">
+    <div class="container navbar__inner">
+      <a href="index.html" class="brand">
+        <img class="brand__logo" src="images/Favicon.jpg" alt="Shrawan Shrestha logo" width="32" height="32" />
+        <span class="brand__name">Shra Wan</span>
+      </a>
+
+      <div class="navbar__links">
+        <a class="nav-link" href="index.html#about">About</a>
+        <a class="nav-link" href="index.html#skills">Skills</a>
+        <a class="nav-link" href="index.html#projects">Projects</a>
+        <a class="nav-link" href="index.html#contact">Contact</a>
+        <a class="nav-cta glass" href="pdf-tools.html" aria-current="page">
+          <svg class="icon icon-16" aria-hidden="true"><use href="#icon-file-stack" /></svg>
+          PDF Tools
+        </a>
+      </div>
+
+      <a class="menu-button menu-button--open" href="#mobile-menu" aria-label="Open menu">
+        <svg class="icon icon-24" aria-hidden="true"><use href="#icon-menu" /></svg>
+      </a>
+      <a class="menu-button menu-button--close" href="#navbar" aria-label="Close menu">
+        <svg class="icon icon-24" aria-hidden="true"><use href="#icon-x" /></svg>
+      </a>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="container mobile-menu__list">
+        <a class="nav-link" href="index.html#about">About</a>
+        <a class="nav-link" href="index.html#skills">Skills</a>
+        <a class="nav-link" href="index.html#projects">Projects</a>
+        <a class="nav-link" href="index.html#contact">Contact</a>
+        <a class="nav-cta" href="pdf-tools.html" aria-current="page">
+          <svg class="icon icon-16" aria-hidden="true"><use href="#icon-file-stack" /></svg>
+          PDF Tools
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pdf-page">
+    <div class="fill-parent bg-grid pdf-page__grid"></div>
+    <div class="blob blob-accent pdf-page__glow-1"></div>
+    <div class="blob blob-brand pdf-page__glow-2"></div>
+
+    <div class="container pdf-page__content">
+
+      <a href="index.html" class="back-link animate-fade-down">
+        <svg class="icon icon-18" aria-hidden="true"><use href="#icon-arrow-left" /></svg>
+        Back to Portfolio
+      </a>
+
+      <!-- Page header -->
+      <header class="pdf-header animate-fade-up">
+        <div class="pill pill-md glass pdf-header__badge">
+          <svg class="icon icon-14" aria-hidden="true"><use href="#icon-sparkles" /></svg>
+          AI-Powered PDF Tools
+        </div>
+        <h1 class="section-title pdf-header__title">Your files, perfectly converted</h1>
+        <p class="pdf-header__text">
+          Convert Word, Excel, PowerPoint, images, text, code, and more to PDF — or merge
+          multiple PDFs into one. Everything runs right in your browser — fast, private, and free.
+        </p>
+      </header>
+
+      <div class="pdf-badges animate-fade-up delay-200">
+        <div class="pill pill-md glass">
+          
+          Instant Processing
+        </div>
+        <div class="pill pill-md glass">
+          <svg class="icon icon-14 icon-accent" aria-hidden="true"><use href="#icon-lock" /></svg>
+          100% Private — No Server Uploads
+        </div>
+        <div class="pill pill-md glass">
+          
+          Files Never Leave Your Device
+        </div>
+      </div>
+
+      <noscript>
+        <p class="notice glass">These tools need JavaScript. Please enable it in your browser to convert or merge files.</p>
+      </noscript>
+
+      <!-- Tabs are pure CSS: the two radio buttons decide which panel is visible -->
+      <input class="tab-input sr-only" type="radio" name="tool" id="tab-convert" checked />
+      <input class="tab-input sr-only" type="radio" name="tool" id="tab-merge" />
+
+      <div class="tabs-wrap animate-fade-up delay-300">
+        <div class="tabs glass-strong" role="group" aria-label="Choose a tool">
+          <label class="tab" for="tab-convert">
+            <svg class="icon icon-18" aria-hidden="true"><use href="#icon-file-text" /></svg>
+            File to PDF
+          </label>
+          <label class="tab" for="tab-merge">
+            <svg class="icon icon-18" aria-hidden="true"><use href="#icon-combine" /></svg>
+            Merge PDFs
+          </label>
+        </div>
+      </div>
+
+      <div class="tool-panels animate-fade-up delay-400">
+
+        <!-- ===================== TOOL 1: FILE TO PDF ===================== -->
+        <section class="tool-panel" id="panel-convert" aria-label="File to PDF converter">
+          
+
+            <div class="formats">
+              <span class="formats__label">
+                <svg class="icon icon-14" aria-hidden="true"><use href="#icon-file-type" /></svg>
+                Supports:
+              </span>
+              <span class="pill formats__chip glass">Word (DOCX)</span>
+              <span class="pill formats__chip glass">Excel (XLSX)</span>
+              <span class="pill formats__chip glass">PowerPoint (PPTX)</span>
+              <span class="pill formats__chip glass">PDF</span>
+              <span class="pill formats__chip glass">Images (JPG, PNG, GIF, WebP, SVG)</span>
+              <span class="pill formats__chip glass">Text (TXT, MD, CSV, JSON)</span>
+              <span class="pill formats__chip glass">HTML</span>
+              <span class="pill formats__chip glass">OpenDocument (ODS, ODT, ODP)</span>
+              <span class="pill formats__chip glass">Code (JS, TS, PY, Java, C++, ...)</span>
+            </div>
+
+            <!-- Settings: plain radio buttons / checkbox styled as buttons (read by the script on convert) -->
+            <div class="settings glass">
+              <div class="settings__head">
+                <svg class="icon icon-16 icon-accent" aria-hidden="true"><use href="#icon-settings" /></svg>
+                <h3 class="settings__title">PDF Settings</h3>
+              </div>
+              <div class="settings__grid">
+                <fieldset class="option-group">
+                  <legend class="field__label">Page Size</legend>
+                  <div class="option-row">
+                    <input class="sr-only" type="radio" name="pageSize" id="size-a4" value="a4" checked />
+                    <label class="option-btn" for="size-a4">A4</label>
+                    <input class="sr-only" type="radio" name="pageSize" id="size-letter" value="letter" />
+                    <label class="option-btn" for="size-letter">Letter</label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="option-group">
+                  <legend class="field__label">Orientation</legend>
+                  <div class="option-row">
+                    <input class="sr-only" type="radio" name="orientation" id="orient-portrait" value="portrait" checked />
+                    <label class="option-btn" for="orient-portrait">Portrait</label>
+                    <input class="sr-only" type="radio" name="orientation" id="orient-landscape" value="landscape" />
+                    <label class="option-btn" for="orient-landscape">Landscape</label>
+                  </div>
+                </fieldset>
+
+                <fieldset class="option-group">
+                  <legend class="field__label">Metadata</legend>
+                  <div class="option-row">
+                    <input class="sr-only" type="checkbox" name="metadata" id="opt-metadata" checked />
+                    <label class="option-btn" for="opt-metadata">
+                      <span class="when-on">Included</span>
+                      <span class="when-off">Excluded</span>
+                    </label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <!-- Drop zone: clicking the label opens the file picker; the script adds drag & drop -->
+            <label class="dropzone dropzone--accent" id="convert-dropzone" for="convert-input">
+              <input class="sr-only" type="file" id="convert-input" multiple
+                     accept=".txt,.md,.csv,.json,.html,.htm,.xml,.log,.rtf,.tsv,.yaml,.yml,.ini,.conf,.bat,.sh,.sql,.css,.js,.ts,.py,.java,.c,.cpp,.go,.rs,.rb,.php,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg,.pdf,.xlsx,.xlsm,.xlsb,.xls,.ods,.docx,.docm,.pptx,.pptm,.odt,.odp" />
+              <span class="dropzone__icon glass">
+                <svg class="icon icon-28" aria-hidden="true"><use href="#icon-upload" /></svg>
+              </span>
+              <span class="dropzone__title">
+                <span class="when-idle">Drag &amp; drop files or click to browse</span>
+                <span class="when-dragging">Drop files here</span>
+              </span>
+              <span class="dropzone__hint">Word, Excel, PowerPoint, PDF, Images, Text, HTML, Code &amp; more</span>
+            </label>
+
+            <!-- File list (shown once files are added) -->
+            <div class="file-section" id="convert-files" hidden>
+              <div class="file-section__head">
+                <h3 class="file-section__title">
+                  Files (<span id="convert-count">0</span>)<span class="file-section__done" id="convert-done" hidden></span>
+                </h3>
+                <button type="button" class="link-btn" id="convert-clear">Clear all</button>
+              </div>
+
+              <ul class="file-list" id="convert-list" aria-live="polite"></ul>
+
+              <button type="button" class="action-btn action-btn--accent" id="convert-run" hidden>
+                <span class="action-btn__idle">
+                  <svg class="icon icon-20" aria-hidden="true"><use href="#icon-download" /></svg>
+                  <span id="convert-run-label">Convert files to PDF</span>
+                </span>
+                <span class="action-btn__busy">
+                  <svg class="icon icon-20 spin" aria-hidden="true"><use href="#icon-loader-circle" /></svg>
+                  Converting...
+                </span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ===================== TOOL 2: MERGE PDFs ===================== -->
+        <section class="tool-panel" id="panel-merge" aria-label="PDF merger">
+          <div class="tool-stack">
+
+            <div class="tool-header glass-strong">
+              <div class="icon-box icon-box-lg tone-blue-green">
+                <svg class="icon icon-24 icon-brand" aria-hidden="true"><use href="#icon-combine" /></svg>
+              </div>
+              <div>
+                <h2 class="tool-header__title">PDF Merger</h2>
+                <p class="tool-header__text">
+                  Combine multiple PDF files into one document. Drag to reorder, then merge with a
+                  single click. All processing happens in your browser — no uploads to any server.
+                </p>
+              </div>
+            </div>
+
+            <div class="merge-stats" id="merge-stats" hidden>
+              <div class="stat-tile glass"><p class="stat-value" id="merge-stat-files">0</p><p class="stat-label">Files</p></div>
+              <div class="stat-tile glass"><p class="stat-value" id="merge-stat-ready">0</p><p class="stat-label">Ready</p></div>
+              <div class="stat-tile glass"><p class="stat-value" id="merge-stat-pages">0</p><p class="stat-label">Total Pages</p></div>
+            </div>
+
+            <label class="dropzone dropzone--brand" id="merge-dropzone" for="merge-input">
+              <input class="sr-only" type="file" id="merge-input" multiple accept="application/pdf,.pdf" />
+              <span class="dropzone__icon glass">
+                <svg class="icon icon-28" aria-hidden="true"><use href="#icon-upload" /></svg>
+              </span>
+              <span class="dropzone__title">
+                <span class="when-idle">Drag &amp; drop PDF files or click to browse</span>
+                <span class="when-dragging">Drop PDFs here</span>
+              </span>
+              <span class="dropzone__hint">Only PDF files supported · Add 2 or more to merge</span>
+            </label>
+
+            <div class="file-section" id="merge-files" hidden>
+              <div class="file-section__head">
+                <h3 class="file-section__title">PDFs to Merge (<span id="merge-count">0</span>)</h3>
+                <button type="button" class="link-btn" id="merge-clear">Clear all</button>
+              </div>
+
+              <ul class="file-list" id="merge-list" aria-live="polite"></ul>
+
+              <button type="button" class="action-btn action-btn--brand" id="merge-run" data-state="idle" hidden>
+                <span class="state state-idle">
+                  <svg class="icon icon-20" aria-hidden="true"><use href="#icon-download" /></svg>
+                  <span>Merge <span class="js-ready-count">0</span> PDFs into One</span>
+                </span>
+                <span class="state state-busy">
+                  <svg class="icon icon-20 spin" aria-hidden="true"><use href="#icon-loader-circle" /></svg>
+                  <span>Merging <span class="js-ready-count">0</span> PDFs...</span>
+                </span>
+                <span class="state state-done">
+                  <svg class="icon icon-20" aria-hidden="true"><use href="#icon-circle-check" /></svg>
+                  Merged Successfully!
+                </span>
+              </button>
+
+              <div class="hint glass" id="merge-hint" hidden>
+                <svg class="icon icon-16 icon-accent" aria-hidden="true"><use href="#icon-sparkles" /></svg>
+                <span id="merge-hint-text">Add at least one more PDF to enable merging.</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Row templates: the script clones these for every file that is added -->
+  <template id="convert-row-template">
+    <li class="file-row glass animate-slide-in" data-status="pending">
+      <div class="file-row__thumb glass">
+        <img class="file-row__img" alt="" hidden />
+        <svg class="icon icon-20 icon-accent file-row__icon" aria-hidden="true"><use href="#icon-file" /></svg>
+      </div>
+      <div class="file-row__info">
+        <p class="file-row__name"></p>
+        <p class="file-row__meta"></p>
+      </div>
+      <div class="file-row__status">
+        <span class="status-chip glass st-pending">Ready</span>
+        <svg class="icon icon-20 icon-accent spin st-working" aria-hidden="true"><use href="#icon-loader-circle" /></svg>
+        <svg class="icon icon-20 icon-accent st-done" aria-hidden="true"><use href="#icon-circle-check" /></svg>
+        <span class="status-chip status-chip--error glass st-error">Error</span>
+      </div>
+      <button type="button" class="icon-btn file-row__remove" aria-label="Remove file">
+        <svg class="icon icon-18" aria-hidden="true"><use href="#icon-x" /></svg>
+      </button>
+    </li>
+  </template>
+
+  <template id="merge-row-template">
+    <li class="file-row file-row--merge glass" data-status="working" draggable="true">
+      <svg class="icon icon-18 file-row__grip" aria-hidden="true"><use href="#icon-grip-vertical" /></svg>
+      <div class="order-badge tone-green-blue"><span class="order-badge__num"></span></div>
+      <div class="file-row__thumb file-row__thumb--sm glass">
+        <svg class="icon icon-18 icon-brand" aria-hidden="true"><use href="#icon-file-text" /></svg>
+      </div>
+      <div class="file-row__info">
+        <p class="file-row__name"></p>
+        <p class="file-row__meta"></p>
+      </div>
+      <div class="file-row__status">
+        <svg class="icon icon-18 icon-brand spin st-working" aria-hidden="true"><use href="#icon-loader-circle" /></svg>
+        <svg class="icon icon-18 icon-accent st-done" aria-hidden="true"><use href="#icon-circle-check" /></svg>
+        <span class="status-text--error st-error">Failed</span>
+      </div>
+      <div class="file-row__moves">
+        <button type="button" class="icon-btn icon-btn--box" data-move="up" aria-label="Move up">
+          <svg class="icon icon-16" aria-hidden="true"><use href="#icon-arrow-up" /></svg>
+        </button>
+        <button type="button" class="icon-btn icon-btn--box" data-move="down" aria-label="Move down">
+          <svg class="icon icon-16" aria-hidden="true"><use href="#icon-arrow-down" /></svg>
+        </button>
+      </div>
+      <button type="button" class="icon-btn file-row__remove" aria-label="Remove file">
+        <svg class="icon icon-18" aria-hidden="true"><use href="#icon-x" /></svg>
+      </button>
+    </li>
+  </template>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__row">
+        <span class="footer__name">Shrawan Shrestha</span>
+
+        <div class="footer__links">
+          <a href="index.html">Portfolio</a>
+          <a href="pdf-tools.html">Advance PDF Tools</a>
+          <a href="tel:+9779769400796">Contacts</a>
+        </div>
+
+        <a href="#top" class="to-top glass" aria-label="Back to top">
+          <svg class="icon icon-18" aria-hidden="true"><use href="#icon-arrow-up" /></svg>
+        </a>
+      </div>
+
+      <div class="footer__credit">
+        <p>Made by Shrawan Shrestha</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- The only JavaScript on the whole site: it powers the two PDF tools -->
+  <script src="js/utils.js" defer></script>
+  <script src="js/file-converters.js" defer></script>
+  <script src="js/file-to-pdf.js" defer></script>
+  <script src="js/pdf-merge.js" defer></script>
+</body>
+</html>

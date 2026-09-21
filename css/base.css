@@ -1,0 +1,120 @@
+/* ==========================================================
+   base.css — design tokens, reset, page defaults
+   ========================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Page background — mint */
+  --bg: #caf0e1;
+
+  /* Ink (neutral) — LIGHT THEME: low numbers = darkest text,
+     high numbers = pale mint tints (kept the same names so every
+     var(--ink-*) in the other files still makes sense) */
+  --ink-50:  #f2fcf8;
+  --ink-100: #0d241b;
+  --ink-200: #163427;
+  --ink-300: #1f4636;
+  --ink-400: #33584a;
+  --ink-500: #46695a;
+  --ink-600: #5a7d6e;
+  --ink-700: #8fb8a5;
+  --ink-800: #a5cdba;
+  --ink-900: #b6ddca;
+  --ink-950: #caf0e1;   /* = --bg */
+
+  /* Text roles */
+  --heading:   #0d241b;  /* titles, strong text (was white) */
+  --on-accent: #04261a;  /* text that sits on a green button */
+  --danger:    #b91c1c;
+
+  /* Accent (green) */
+  --accent-300: #79ebbb;
+  --accent-400: #3dd99a;
+  --accent-500: #15c181;
+  --accent-700: #088055;
+  --accent-text: #056443;  /* green that is readable on the mint background */
+
+  /* Brand (blue) */
+  --brand-400: #60a5fa;
+  --brand-500: #3b82f6;
+  --brand-700: #1d4ed8;
+  --brand-text: #1d4ed8;
+
+  /* RGB triplets, for translucent colours: rgb(var(--x-rgb) / 0.2) */
+  --accent-500-rgb: 21 193 129;
+  --accent-700-rgb: 8 128 85;
+  --brand-500-rgb: 59 130 246;
+  --brand-700-rgb: 29 78 216;
+  --tint-rgb: 8 100 68;      /* deep green, used for borders / hovers */
+
+  /* Type */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+
+  /* Shared surfaces (white frosted panels on mint) */
+  --glass-bg: rgb(255 255 255 / 0.5);
+  --glass-border: rgb(var(--tint-rgb) / 0.16);
+  --glass-strong-bg: rgb(255 255 255 / 0.65);
+  --glass-strong-border: rgb(var(--tint-rgb) / 0.18);
+  --hairline: rgb(var(--tint-rgb) / 0.14);
+  --glass-shadow: 0 4px 18px rgb(var(--tint-rgb) / 0.08);
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0 solid;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--ink-700) var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink-300);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-size: inherit; font-weight: inherit; }
+ul { list-style: none; padding: 0; }
+a { color: inherit; text-decoration: inherit; }
+img, svg { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+fieldset { padding: 0; min-width: 0; }
+
+button, input, textarea {
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  background: transparent;
+}
+button { cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--accent-700);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgb(var(--accent-500-rgb) / 0.35);
+  color: var(--heading);
+}
+
+/* ---------- Scrollbar (WebKit) ---------- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--ink-700); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-600); }

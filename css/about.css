@@ -1,0 +1,115 @@
+/* ==========================================================
+   about.css — profile card + bio
+   ========================================================== */
+.about { padding-top: 1.5rem; }
+.about__grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .about__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5rem;
+  }
+}
+
+/* ---------- Profile card ---------- */
+.profile {
+  position: relative;
+  display: flex;
+  max-width: 28rem;
+  margin-inline: auto;
+}
+/* Square card on wider screens; on phones let the content set the height */
+@media (min-width: 640px) { .profile { aspect-ratio: 1 / 1; } }
+.profile__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  background: linear-gradient(to bottom right,
+              rgb(var(--accent-500-rgb) / 0.2), rgb(var(--brand-500-rgb) / 0.2));
+  filter: blur(40px);
+}
+.profile__card {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex start;
+  padding: 1.5em;
+  border-radius: 1.5rem;
+}
+
+.profile__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.profile__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;              /* keeps the circle from squashing next to the name */
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  overflow: hidden;            /* crops the image to the circle */
+  background: #fff;            /* Favicon.jpg has a white background */
+  border: 2px solid rgb(var(--accent-700-rgb) / 0.35);
+  box-shadow: 0 2px 8px rgb(var(--tint-rgb) / 0.2);
+}
+.profile__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* fills the circle without stretching */
+  transform: scale(1.35);      /* zooms in on the logo, which sits small in the middle of the file; remove for a real photo */
+}
+
+.profile__name { font-weight: 600; color: var(--heading); }
+.profile__place { font-size: 0.875rem; line-height: 1.25rem; color: var(--ink-400); }
+
+.profile__facts { display: flex; flex-direction: column; gap: 1rem; }
+.fact { display: flex; align-items: flex-start; gap: 0.75rem; }
+.fact__label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--ink-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.fact__value {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--ink-200);
+}
+
+.profile__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+
+/* ---------- Bio ---------- */
+.about__text .section-title { margin-bottom: 2.5rem; font-size: 2.5rem; }
+.about__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  line-height: 1.625;
+  color: var(--ink-300);
+}
+.about__copy strong { font-weight: 500; color: var(--heading); }
+
+.about__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.about__stats .icon { width: 18px; height: 18px; }
+.stat-value {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+.about__text .eyebrow { margin-bottom: 3 rem; font-size: 1.5rem; }

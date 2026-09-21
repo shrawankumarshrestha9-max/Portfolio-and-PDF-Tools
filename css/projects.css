@@ -1,0 +1,98 @@
+/* ==========================================================
+   projects.css — project cards + Kitchen Durbar banner
+   ========================================================== */
+
+.projects__grid {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 768px)  { .projects__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .projects__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+/* coloured glow that fades in on hover */
+.project-card__glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.project-card:hover .project-card__glow { opacity: 1; }
+.glow-green { background: linear-gradient(to bottom right, rgb(var(--accent-500-rgb) / 0.2), rgb(var(--accent-700-rgb) / 0.1), transparent); }
+.glow-blue  { background: linear-gradient(to bottom right, rgb(var(--brand-500-rgb) / 0.2),  rgb(var(--brand-700-rgb) / 0.1),  transparent); }
+
+.project-card__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.75rem;
+}
+.project-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.project-card__arrow {
+  color: var(--ink-500);
+  transition: color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.project-card:hover .project-card__arrow {
+  color: var(--accent-text);
+  transform: rotate(12deg);
+}
+.project-card__title {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--heading);
+}
+.project-card__text {
+  flex: 1;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--ink-400);
+}
+.project-card__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.project-card__tags .pill { padding: 0.25rem 0.75rem; font-size: 0.75rem; line-height: 1rem; font-weight: 500; }
+
+/* ---------- Kitchen Durbar banner ---------- */
+.feature-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+@media (min-width: 768px) {
+  .feature-banner { flex-direction: row; align-items: center; padding: 2.5rem; }
+}
+.feature-banner__text { flex: 1; }
+.feature-banner__title {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--heading);
+}
+.feature-banner__desc {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--ink-400);
+}
+.feature-banner .btn-glass {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+.feature-banner .btn-glass:hover { transform: none; background: rgb(var(--tint-rgb) / 0.14); }

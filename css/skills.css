@@ -1,0 +1,57 @@
+/* ==========================================================
+   skills.css — capability cards
+   ========================================================== */
+
+.skills__dots { opacity: 0.3; }
+.skills > .container { position: relative; z-index: 10; }
+
+.skills__grid {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 640px)  { .skills__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .skills__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.skill-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+.skill-card .icon-box { margin-bottom: 1.25rem; }
+.skill-card__title {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--heading);
+}
+.skill-card__list { display: flex; flex-direction: column; gap: 0.5rem; }
+.skill-card__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--ink-300);
+}
+.skill-card__list li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--accent-500);
+}
+
+/* Icon tile colours */
+.tone-green      { background: linear-gradient(to bottom right, rgb(var(--accent-500-rgb) / 0.2), rgb(var(--accent-700-rgb) / 0.1)); }
+.tone-blue       { background: linear-gradient(to bottom right, rgb(var(--brand-500-rgb) / 0.2),  rgb(var(--brand-700-rgb) / 0.1)); }
+.tone-green-blue { background: linear-gradient(to bottom right, rgb(var(--accent-500-rgb) / 0.2), rgb(var(--brand-500-rgb) / 0.1)); }
+.tone-blue-green { background: linear-gradient(to bottom right, rgb(var(--brand-500-rgb) / 0.2),  rgb(var(--accent-500-rgb) / 0.1)); }
+
+.skills__extras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 3rem;
+}

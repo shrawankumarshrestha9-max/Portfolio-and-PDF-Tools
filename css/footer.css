@@ -59,3 +59,9 @@
   line-height: 1.25rem;
   color: var(--ink-500);
 }
+
+.footer__credit .profile__social {
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}

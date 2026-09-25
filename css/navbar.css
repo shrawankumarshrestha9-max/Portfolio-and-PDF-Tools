@@ -58,10 +58,15 @@
   gap: 1.5rem;
 }
 .brand__logo {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   object-fit: cover;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .brand__logo { width: 3.25rem; height: 3.25rem; }
 }
 .brand__name {
   font-size: 2.25rem;
